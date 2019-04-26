@@ -42,9 +42,10 @@ mysql -u root <<EOF
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
-CREATE USER IF NOT EXISTS link@localhost IDENTIFIED BY 'hero12#$';
-GRANT PRIVILEGES ON *.* TO 'link'@'localhost' IDENTIFIED BY 'hero12#$';
 CREATE DATABASE IF NOT EXISTS nova_prospekt;
+CREATE USER IF NOT EXISTS link@localhost IDENTIFIED BY 'hero12#$';
+GRANT ALL PRIVILEGES ON nova_prospekt.* TO 'link'@'localhost' IDENTIFIED BY 'hero12#$';
+FLUSH PRIVILEGES;
 USE nova_prospekt;
 CREATE TABLE IF NOT EXISTS users (
 	idUsers int(11) NOT NULL AUTO_INCREMENT, 
@@ -79,7 +80,6 @@ CREATE TABLE IF NOT EXISTS pwdReset (
     pwdResetExpires text NOT NULL,
     PRIMARY KEY (pwdResetId)
 );
-FLUSH PRIVILEGES;
 exit
 EOF
 
@@ -91,6 +91,7 @@ sleep 5
 echo -e "\n"
 
 service apache2 restart && service mysql restart > /dev/null
+systemctl enable mysql
 
 echo -e "\n"
 
