@@ -92,6 +92,7 @@ echo -e "\n"
 
 service apache2 restart && service mysql restart > /dev/null
 systemctl enable mysql
+systemctl enable apache2
 
 echo -e "\n"
 
