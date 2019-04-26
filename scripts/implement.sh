@@ -71,14 +71,16 @@ sudo cp ~/community-rules/* /etc/snort/rules
 #Copy config files
 cd /Comp424-FinalProject/scripts
 cp snort.conf /etc/snort
-cp local.rules /etc/snort/rules/local.rules
-cp snort.service /lib/systemd/system/snort.service
+cp local.rules /etc/snort/rules
+cp snort.service /lib/systemd/system
+cp apache2.conf /etc/apache2
 
+sudo systemctl apache2 restart
 sudo systemctl daemon-reload
 sudo systemctl start snort
 
 cp -r /Comp424-FinalProject/scripts/html/. /var/www/html
 
-echo "$(tput bold)$(tput setaf 2)Snort Configuration done$(tput sgr0)"
+echo "$(tput bold)$(tput setaf 2)Configuration done$(tput sgr0)"
 
 exit 0
