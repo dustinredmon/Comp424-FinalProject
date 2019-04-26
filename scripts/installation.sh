@@ -16,7 +16,7 @@ echo "##########################################################################
 sudo apt update
 sudo apt upgrade -y 
 
-echo "$(tput bold)$(tput setaf 2)Initial updates done$(tput sgr0)Initial updates done"
+echo "$(tput bold)$(tput setaf 2)Initial updates done$(tput sgr0)"
 sleep 5
 
 #Apache, Php, OpenSSH, Snort, and required packages installation
