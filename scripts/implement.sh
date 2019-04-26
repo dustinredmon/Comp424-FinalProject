@@ -68,14 +68,14 @@ sudo tar -xvf ~/community.tar.gz -C ~/
 sudo cp ~/community-rules/* /etc/snort/rules
 #sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf
 
-sudo systemctl daemon-reload
-sudo systemctl start snort
-
 #Copy config files
 cd /Comp424-FinalProject/scripts
 cp snort.conf /etc/snort
 cp local.rules /etc/snort/rules/local.rules
 cp snort.service /lib/systemd/system/snort.service
+
+sudo systemctl daemon-reload
+sudo systemctl start snort
 
 cp -r /Comp424-FinalProject/scripts/html/. /var/www/html
 
