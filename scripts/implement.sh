@@ -72,12 +72,12 @@ sudo systemctl daemon-reload
 sudo systemctl start snort
 
 #Copy config files
-cd /scripts
+cd /Comp424-FinalProject/scripts
 cp snort.conf /etc/snort
 cp local.rules /etc/snort/rules/local.rules
 cp snort.service /lib/systemd/system/snort.service
 
-cp -r /scripts/html/. /var/www/html
+cp -r /Comp424-FinalProject/scripts/html/. /var/www/html
 
 echo "$(tput bold)$(tput setaf 2)Snort Configuration done$(tput sgr0)"
 
