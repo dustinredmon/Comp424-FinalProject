@@ -43,7 +43,7 @@ DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.
 DELETE FROM mysql.user WHERE User='';
 DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
 CREATE USER IF NOT EXISTS link@localhost IDENTIFIED BY 'hero12#$';
-GRANT USAGE ON *.* TO 'link'@'localhost' IDENTIFIED BY 'hero12#$';
+GRANT PRIVILEGES ON *.* TO 'link'@'localhost' IDENTIFIED BY 'hero12#$';
 CREATE DATABASE IF NOT EXISTS nova_prospekt;
 USE nova_prospekt;
 CREATE TABLE IF NOT EXISTS users (
