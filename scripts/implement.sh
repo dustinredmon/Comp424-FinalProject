@@ -66,8 +66,9 @@ sudo cp ~/snort_src/snort-2.9.12/etc/*.map /etc/snort
 wget https://www.snort.org/rules/community -O ~/community.tar.gz
 sudo tar -xvf ~/community.tar.gz -C ~/
 sudo cp ~/community-rules/* /etc/snort/rules
-sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf
+#sudo sed -i 's/include \$RULE\_PATH/#include \$RULE\_PATH/' /etc/snort/snort.conf
 
+#Copy config files
 cd /scripts
 cp snort.conf /etc/snort
 cp local.rules /etc/snort/rules/local.rules
