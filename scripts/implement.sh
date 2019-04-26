@@ -75,15 +75,20 @@ cp local.rules /etc/snort/rules
 cp snort.service /lib/systemd/system
 cp apache2.conf /etc/apache2
 
+#Fix mods for apache
 a2dismod mpm_event
 a2enmod mpm_prefork
 a2enmod php7.2
 
+#Start/reload necessary services
 sudo systemctl apache2 restart
 sudo systemctl daemon-reload
 sudo systemctl start snort
 
+#Copy website files 
 cp -r /Comp424-FinalProject/scripts/html/. /var/www/html
+cd /var/www/html
+rm index.html
 
 echo "$(tput bold)$(tput setaf 2)Configuration done$(tput sgr0)"
 
