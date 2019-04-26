@@ -77,6 +77,7 @@ cp apache2.conf /etc/apache2
 
 a2dismod mpm_event
 a2enmod mpm_prefork
+a2enmod php7.2
 
 sudo systemctl apache2 restart
 sudo systemctl daemon-reload
