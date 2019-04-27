@@ -54,14 +54,14 @@
             ?>
 	   <?php
 		$userLOG = $_SESSION['userId'];
-        	$sql = "SELECT login_countUsers FROM users WHERE idUsers='$userLOG'";
+        $sql = "SELECT login_countUsers FROM users WHERE idUsers='$userLOG'";
 		$output= mysqli_query($conn, $sql);
-        	$row = mysqli_fetch_assoc($output);
-        	$login_count = $row['login_countUsers'];
+        $row = mysqli_fetch_assoc($output);
+        $login_count = $row['login_countUsers'];
 
 		$sql = "SELECT firstUsers, lastUsers FROM users WHERE idUsers='$userLOG'";
 		$qResult = mysqli_query($conn, $sql);
-                
+
 		if(mysqli_num_rows($qResult) > 0){
 			while($row = mysqli_fetch_assoc($qResult)){
 				$userName = $row["firstUsers"] . " " . $row["lastUsers"];
@@ -81,7 +81,7 @@
               <p class="login-status"><?php echo $userName ?> is logged in and activated!</p>
 
 	      <p>You have logged in <?php echo $login_count ?> times.<p>
-	      <p>Your last login was on <?php echo $last_login ?>.<p>
+	      <p>Your last login was on <?php echo $_SESSION['last_login'] ?>.<p>
 	      <p><a href="/secret/secret.txt" download>Download secret here</a></p>
 
 
