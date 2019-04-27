@@ -59,13 +59,6 @@
         	$row = mysqli_fetch_assoc($output);
         	$login_count = $row['login_countUsers'];
 
-		//Last login date
-		$sql = "SELECT last_loginUsers FROM users WHERE idUsers='$userLOG'";
-                $output = mysqli_query($conn, $sql);
-                $row = mysqli_fetch_assoc($output);
-                $last_login = $row['last_loginUsers'];
-                $_SESSION["last_login"] = "$last_login";
-
 		$sql = "SELECT firstUsers, lastUsers FROM users WHERE idUsers='$userLOG'";
 		$qResult = mysqli_query($conn, $sql);
                 
