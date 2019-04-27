@@ -60,14 +60,14 @@ if (isset($_POST['login-submit'])) {
 	  mysqli_query($conn, $sql);
 
 	  // query last_login and store in SESSION
-          $sql = "SELECT last_login FROM users WHERE username='$userLOG'";
+          $sql = "SELECT last_loginUsers FROM users WHERE uidUsers='$mailuid' or emailUsers='$mailuid'";
           $output = mysqli_query($conn, $sql);
           $row = mysqli_fetch_assoc($output);
           $last_login = $row['last_login'];
           $_SESSION["last_login"] = "$last_login";
 
 	  // Update login_count if login successful
-          $sql = "UPDATE users SET login_count=login_count + 1 WHERE username='$userLOG'";
+          $sql = "UPDATE users SET login_countUsers=login_countUsers + 1 WHERE uidUsers='$mailuid' or emailUsers='$mailuid'";
           mysqli_query($conn, $sql);
 
           // Close connection
