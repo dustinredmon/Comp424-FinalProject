@@ -313,7 +313,7 @@ if (isset($_POST['signup-submit'])) {
   mysqli_close($conn);
  }
  else {
-	header("Location: ../signup.php");
+	header("Location: ../signup.php?error=captcha");
 	exit();
     } 
 }
