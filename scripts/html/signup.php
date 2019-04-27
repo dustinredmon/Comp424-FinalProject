@@ -1,20 +1,5 @@
 <?php
   require "header.php";
-
-// Recaptcha verification
-// if(isset($_POST["signup-submit"])){
-//	//$url = "https://www.google.com/recaptcha/api/siteverify";
-//	//$privatekey = "6Ld9xZwUAAAAAEh09IBRViZ2W7LyALBfMA3fiDoK";
-//
-//	//$response = file_get_contents($url."?secret=".$privatekey."&response=".$_POST["g-recaptcha-response"]."&remoteip=".$_SERVER["REMOTE_ADDR"]);
-//	//$data = json_decode($response);
-//
-//	//if(isset($data->success AND $data->success==true)){
-//		
-//	//} else {
-//
-//	}
-//}
 ?>
 
     <main>
@@ -49,6 +34,9 @@
             }
             else if ($_GET["error"] == "mailused") {
               echo '<p class="signuperror">This E-mail is already registered to another account!</p>';
+            }
+	    else if ($_GET["error"] == "captcha") {
+              echo '<p class="signuperror">Please complete the Captcha.</p>';
             }
           }
           // Here we create a success message if the new user was created.
