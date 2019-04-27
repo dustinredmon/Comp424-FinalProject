@@ -39,9 +39,21 @@ if (isset($_POST['login-submit'])) {
         $pwdCheck = password_verify($password, $row['pwdUsers']);
         if ($pwdCheck == false) {
           // The user entered the wrong password!
-	  // Add failed attempt to login_history
-	  $sql = "INSERT INTO login_history (uidUsers, userIP, success) VALUES ('$mailuid', '$uip', 'no')";
-          mysqli_query($conn, $sql);
+
+
+	        // Add failed attempt to login_history using prepared statement
+          $sql = "INSERT INTO login_history (uidUsers, userIP, success) VALUES (?, ?, ?);";
+          $stmt = mysqli_stmt_init($conn);
+          if (!mysqli_stmt_prepare($stmt, $sql)) {
+              // If there was an error connecting to the database
+              header("Location: ../reset-password.php?error=sqlerror");
+              exit();
+          }
+          else {
+            $loginsuccess = 'no';
+            mysqli_stmt_bind_param($stmt, "sss", $mailuid, $uip, $loginsuccess);
+            mysqli_stmt_execute($stmt);
+          }
 
 
           header("Location: ../index.php?error=wrongpwd");
@@ -54,34 +66,48 @@ if (isset($_POST['login-submit'])) {
           $_SESSION['userId'] = $row['idUsers'];
           $_SESSION['userUid'] = $row['uidUsers'];
           $_SESSION['userStatus'] = $row['statusUsers'];
+          $_SESSION['last_login'] = $row['last_loginUsers'];
 
-	  // Store successful login atempt in login_history
-	  $sql = "INSERT INTO login_history (uidUsers, userIP, success) VALUES ('$mailuid', '$uip', 'yes')";
-	  mysqli_query($conn, $sql);
+      	  // Store successful login attempt in login_history using prepared statements
+          $sql = "INSERT INTO login_history (uidUsers, userIP, success) VALUES (?, ?, ?);";
+          $stmt = mysqli_stmt_init($conn);
+          if (!mysqli_stmt_prepare($stmt, $sql)) {
+              // If there was an error connecting to the database
+              header("Location: ../reset-password.php?error=sqlerror");
+              exit();
+          }
+          else {
+            $loginsuccess = 'yes';
+            mysqli_stmt_bind_param($stmt, "sss", $mailuid, $uip, $loginsuccess);
+            mysqli_stmt_execute($stmt);
+          }
 
-	  // query last_login and store in SESSION
-          $sql = "SELECT last_loginUsers FROM users WHERE uidUsers='$mailuid' or emailUsers='$mailuid'";
-          $output = mysqli_query($conn, $sql);
-          $row = mysqli_fetch_assoc($output);
-          $last_login = $row['last_login'];
-          $_SESSION["last_login"] = "$last_login";
-
-	  // Update login_count if login successful
+	        // Update login_count if login successful
           $sql = "UPDATE users SET login_countUsers=login_countUsers + 1 WHERE uidUsers='$mailuid' or emailUsers='$mailuid'";
           mysqli_query($conn, $sql);
 
           // Close connection
           mysqli_close($conn);
-	
+
           header("Location: ../index.php?login=success");
           exit();
         }
       }
       else {
         //user does not exist
-	//Add failed login attempt
-	$sql = "INSERT INTO login_history (uidUsers, userIP, success) VALUES ('$mailuid', '$uip', 'no')";
-        mysqli_query($conn, $sql);
+	      //Add failed login attempt to login_history using prepared statements
+        $sql = "INSERT INTO login_history (uidUsers, userIP, success) VALUES (?, ?, ?);";
+        $stmt = mysqli_stmt_init($conn);
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
+            // If there was an error connecting to the database
+            header("Location: ../reset-password.php?error=sqlerror");
+            exit();
+        }
+        else {
+          $loginsuccess = 'no';
+          mysqli_stmt_bind_param($stmt, "sss", $mailuid, $uip, $loginsuccess);
+          mysqli_stmt_execute($stmt);
+        }
 
         header("Location: ../index.php?error=nouser");
         exit();
